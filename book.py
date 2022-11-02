@@ -23,6 +23,11 @@ while True:
         mydb.commit()
     if(choice==2):
         print("view book")
+        sql='SELECT * FROM `book`' 
+        mycursor.execute(sql)
+        result=mycursor.fetchall()
+        for i in result:
+            print(i) 
         
     elif(choice==3):
         print('search a book')
