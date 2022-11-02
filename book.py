@@ -9,6 +9,9 @@ while True:
     print('4 update book')
     print('5 delete book')
     print('6 exit')
+    print('7 :.Display the total number of books in each category of book table')
+    print('8 : Display the book details where book name starting character contain ')
+    print('9 : Exit')
     
     choice=int(input('enter the option:'))
     if(choice==1):
@@ -55,4 +58,17 @@ while True:
         mydb.commit()
     elif(choice==6):
         print("exit")
+        break
+    elif(choice == 7):
+
+        print('displays Total number of books for each category')
+
+        sql='SELECT COUNT(*) AS totalbookpercategory,`category` FROM `book` GROUP BY `category`'
+        mycursor.execute(sql)
+        result = mycursor.fetchall()
+        for i in result:
+         print(i)
+    elif(choice == 7):
+        print('displays Total number of books for each category')
+    elif(choice == 9):
         break
