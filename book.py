@@ -31,6 +31,11 @@ while True:
         
     elif(choice==3):
         print('search a book')
+        bookname=input("enter bookname:")
+        sql="SELECT `id`, `bookname`, `author`, `category`, `bookchargeperday`, `eastablishdate` FROM `book` WHERE `bookname`=' "+bookname+"'"
+        mycursor.execute(sql)
+        result=mycursor.fetchall()
+        print(result)
     elif(choice==4):
         print('update the book')
         
