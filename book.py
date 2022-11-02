@@ -49,6 +49,10 @@ while True:
         
     elif(choice==5):
         print('delete the book')
+        bookchargeperday=input("enter charhe:")
+        sql='DELETE FROM `book` WHERE `bookchargeperday`='+bookchargeperday
+        mycursor.execute(sql)
+        mydb.commit()
     elif(choice==6):
         print("exit")
         break
