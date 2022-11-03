@@ -20,8 +20,9 @@ while True:
         author=input("enter author:")
         category=input('enter category:')
         bookchargeperday=input("enter charge:")
-        sql='INSERT INTO `book`( `bookname`, `author`, `category`, `bookchargeperday`) VALUES(%s,%s,%s,%s)'
-        data=(bookname,author,category,bookchargeperday,)
+        eastablishdate=input("enter date(yyyy-mm-d)")
+        sql='INSERT INTO `book`( `bookname`, `author`, `category`, `bookchargeperday`,`eastablishdate`) VALUES(%s,%s,%s,%s,%s)'
+        data=(bookname,author,category,bookchargeperday,eastablishdate)
         mycursor.execute(sql,data)
         mydb.commit()
     if(choice==2):
@@ -35,7 +36,7 @@ while True:
     elif(choice==3):
         print('search a book')
         bookname=input("enter bookname:")
-        sql="SELECT `id`, `bookname`, `author`, `category`, `bookchargeperday`, `eastablishdate` FROM `book` WHERE `bookname`=' "+bookname+"'"
+        sql="SELECT `id`, `bookname`, `author`, `category`, `bookchargeperday`, `eastablishdate` FROM `book` WHERE `bookname` ='"+bookname+"'"
         mycursor.execute(sql)
         result=mycursor.fetchall()
         print(result)
@@ -45,7 +46,7 @@ while True:
         bookname=input('enter bookname:')
         author=input("enter author to be updated:")
         category=input('enter categry to be updated:')
-        sql="UPDATE `book` SET `bookname`='"+bookname+"',`author`='"+author+"',`category`='"+category+"', WHERE `bookchargeperday`="+bookchargeperday
+        sql="UPDATE `book` SET `bookname`='"+bookname+"',`author`='"+author+"',`category`='"+category+"' WHERE `bookchargeperday`="+bookchargeperday
         mycursor.execute(sql)
         mydb.commit()
         print("data successfully updated")
@@ -57,7 +58,7 @@ while True:
         mycursor.execute(sql)
         mydb.commit()
     elif(choice == 6 ):
-        sql = 'SELECT i.`Userid`, i.`bookid`, i.`issue date`, i.`return date`,DATEDIFF(i.`return date`,i.issue date) AS datediff,DATEDIFF(i.`return date`,i.issue date)*b.bookchargeperday AS TotalAmount FROM `issuebook` i JOIN book b ON i.bookid=b.id'
+        sql = 'SELECT i.`userid`, i.`bookid`, i.`issue date`, i.`return date`,DATEDIFF(i.`return date`,i.`issue date`) AS datediff ,DATEDIFF(i.`return date`,i.`issue date`)*b.bookchargeperday AS TotalAmount FROM `issuebook` i JOIN book b ON i.bookid=b.id'
         mycursor.execute(sql)
         result = mycursor.fetchall()
         for i in result:
@@ -71,7 +72,20 @@ while True:
         for i in result:
          print(i)
     elif(choice == 8):
+        
         print('Displays the character which you needed ')
+
+        character= input('Enter the starting character of book you need to display : ')
+
+        sql = "SELECT `id`, `bookname`, `author`, `category`, `bookchargeperday` FROM `book` WHERE `bookname` LIKE '"+character+"%'"
+
+        mycursor.execute(sql)
+
+        result = mycursor.fetchall()
+
+        for i in result:
+
+            print(i)
         
     elif(choice == 9):
         break
